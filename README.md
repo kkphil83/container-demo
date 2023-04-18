@@ -1,16 +1,14 @@
-## Account Day Workshop - Container Demo
+## Account Day - Container Demo
 
-컨테이너 기술의 특징을 확인하고, 가상머신 환경과의 차이점을 
-
-
+컨테이너 기술의 특징을 확인하고, 가상머신과의 차이점을 알아보는 데모입니다. 
 
 ```
 목차
-1. Apache 웹 서버 (HTTPD) 설치 - [기능비교] 별 차이 없고 쉬움
-2. 어플리케이션 배포 - [기능비교] 별 차이 없고 쉬움
-3. 웹서버 버전 업그레이드 - [장점] - 
-4. 웹서버 버전 롤백 - [장점]
-5. 완성된 서비스 공유 (goldenimage vs FileSystem vs container) - [하이라이트] 확장성/이식성 뛰어남
+1. Apache 웹 서버 (HTTPD) 설치
+2. 어플리케이션 배포 
+3. 웹서버 버전 업그레이드 
+4. 웹서버 버전 롤백 
+5. 완성된 서비스 공유/확장 (goldenimage vs FileSystem vs container)
 ```
 
 <br/>
@@ -99,6 +97,9 @@ $ ls ./clumsy-bird/
 # 애플리케이션 소스 위치 확인
 $ cat /etc/httpd/conf/httpd.conf | grep DocumentRoot
 
+# 기존 소스 백업
+$ tar cvf app_old.tar /var/www/html
+
 # 애플리케이션 소스 복사 
 $ ls ./clumsy-bird/
 $ cp -R ./clumsy-bird/* /var/www/html/
@@ -130,6 +131,7 @@ $ podman run -d --name httpd-game -p 8081:8080 -v /root/clumsy-bird:/var/www/htm
 
 **2-3) 요약 - 웹 어플리케이션 배포시 특징**
 
+VM 기반 리눅스의 웹 서버에 새로운 애플리케이션을 배포하는 경우에는 기존 소스의 백업이 필요하지만, 웹 서버 컨테이너를 활용하는 경우에는 podman 명령어 실행시 소스 위치만 잡아주면 되므로 더 간단합니다.
 
 <br/>
 
@@ -137,10 +139,56 @@ $ podman run -d --name httpd-game -p 8081:8080 -v /root/clumsy-bird:/var/www/htm
 ### 3. 웹서버 버전 업그레이드
 ---
 
+**3-1) 리눅스에 설치된 httpd 웹 서버 업그레이드**
+
+httpd 버전을 확인합니다.  
+현재 버전은 2.4.6-40.el7 입니다.
+
+```bash
+$ yum list --showduplicate httpd
+```
+
+![](./httpd_version_before_upgrade.png)
+
+더 최신 버전인 2.4.6-80.el7 으로 httpd 웹 서버를 업그레이드합니다.
+
+```bash
+$ yum update -y httpd-2.4.6-80.el7.x86_64
+```
+
+![](./yum_update_httpd.png)
+
+httpd 버전이 2.4.6-80.el7 으로 업그레이드된 것을 확인합니다.
+
+```bash
+$ yum list --showduplicate httpd
+```
+
+![](./httpd_version_after_upgrade.png)
+
+웹 브라우저에서 8080 포트를 호출하여 서비스의 정상 유무를 확인합니다.
+
+
+
+**3-2) httpd 컨테이너의 웹 서버 업그레이드**
+
+
+
+
+**3-3) 요약 - 웹 서버 업그레이드**
+
 <br/>
 
----
 ### 4. 웹서버 버전 롤백
+---
+
+**4-1) 리눅스에 설치된 httpd 웹 서버 버전 롤백**
+
+
+
+
+**4-2) httpd 컨테이너의 웹 서버 버전 롤백**
+
 
 <br/>
 

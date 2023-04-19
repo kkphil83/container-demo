@@ -22,13 +22,11 @@ Apache 웹 서버를 RHEL OS와 컨테이너에 각각 구성해보면서 각각
 **1-1) 가상머신 기반 리눅스에 httpd 설치**
 
 
-RHEL 7 리눅스 운영체제에서 패키지 관리자 도구인 yum을 통해 httpd 서비스를 설치합니다.
+Red Hat Enterprise Linux 8 운영체제에서 패키지 관리자 도구인 dnf를 통해 httpd 서비스를 설치합니다.
 
 ```bash
-$ yum install -y httpd-2.4.6-40.el7.x86_64
+$ dnf install -y httpd-2.4.37-30.module+el8.3.0+7001+0766b9e7.x86_64
 ```
-
-![](./yum_install_httpd_1.png)
 
 Apache 웹 서버인 httpd 데몬의 서비스 포트를 8080으로 변경합니다.
 
@@ -142,29 +140,27 @@ VM 기반 리눅스의 웹 서버에 새로운 애플리케이션을 배포하�
 **3-1) 리눅스에 설치된 httpd 웹 서버 업그레이드**
 
 httpd 버전을 확인합니다.  
-현재 버전은 2.4.6-40.el7 입니다.
+현재 버전은 <span style="color: green">2.4.37-30.module+el8.3.0+7001+0766b9e7</span> 입니다.
 
 ```bash
-$ yum list --showduplicate httpd
+$ dnf list --showduplicate httpd
 ```
 
-![](./httpd_version_before_upgrade.png)
+![](./rhel8_httpd_version_before.png)
 
-더 최신 버전인 2.4.6-80.el7 으로 httpd 웹 서버를 업그레이드합니다.
+더 최신 버전인 <span style="color: yellow">2.4.37-43.module+el8.5.0+14530+6f259f31.3</span> 으로 httpd 웹 서버를 업그레이드합니다.
 
 ```bash
-$ yum update -y httpd-2.4.6-80.el7.x86_64
+$ dnf update -y httpd-2.4.37-43.module+el8.5.0+14530+6f259f31.3.x86_64
 ```
 
-![](./yum_update_httpd.png)
-
-httpd 버전이 2.4.6-80.el7 으로 업그레이드된 것을 확인합니다.
+httpd 버전이 <span style="color: yellow">2.4.37-43.module+el8.5.0+14530+6f259f31.3</span> 으로 업그레이드된 것을 확인합니다.
 
 ```bash
-$ yum list --showduplicate httpd
+$ dnf list --showduplicate httpd
 ```
 
-![](./httpd_version_after_upgrade.png)
+![](./rhel8_httpd_version_after.png)
 
 웹 브라우저에서 8080 포트를 호출하여 서비스의 정상 유무를 확인합니다.
 
@@ -172,10 +168,38 @@ $ yum list --showduplicate httpd
 
 **3-2) httpd 컨테이너의 웹 서버 업그레이드**
 
+Podman 명령어로 httpd 컨테이너 이미지의 최근 Tag를 확인합니다.
 
+```bash
+$ podman search --list-tags registry.redhat.io/rhel8/httpd-24
+```
 
+![](./podman_search_tags.png)
+
+다운로드 받을 httpd 컨테이너 이미지 버전 (<span style="color: yellow">1-240</span>)을 확정하고 다운로드를 진행합니다.
+
+```bash
+$ podman pull registry.redhat.io/rhel8/httpd-24:1-240
+$ podman images
+```
+
+다운로드 받은 신규 컨테이너 이미지를 실행하여 웹 서버 서비스를 확인합니다. 
+기존 버전인 httpd-game 컨테이너를 중지한 후, 새로운 컨테이너 이름을 httpd-game2 로 지정하여 서비스를 실행합니다.
+
+```bash
+$ podman stop httpd-game
+$ podman run -d --name httpd-game2 -p 8081:8080 -v /root/clumsy-bird:/var/www/html:Z registry.redhat.io/rhel8/httpd-24:1-240
+$ podman ps
+```
+
+웹 브라우저에서 8081 포트로 게임 서비스를 확인합니다.
+
+![](./container_app.png)
 
 **3-3) 요약 - 웹 서버 업그레이드**
+
+리눅스 환경에서는 
+
 
 <br/>
 
@@ -184,16 +208,36 @@ $ yum list --showduplicate httpd
 
 **4-1) 리눅스에 설치된 httpd 웹 서버 버전 롤백**
 
+기존의 httpd 웹 서버 버전인 <span style="color: green">2.4.37-30.module+el8.3.0+7001+0766b9e7</span> 로 다시 롤백합니다.
 
+```bash
+$ dnf downgrade -y httpd-2.4.37-30.module+el8.3.0+7001+0766b9e7.x86_64
+```
+버전이 롤백된 것을 확인합니다.
+
+```bash
+$ dnf list --showduplicate httpd
+```
+![](./rhel8_httpd_version_rollback.png)
 
 
 **4-2) httpd 컨테이너의 웹 서버 버전 롤백**
 
+신규 버전의 httpd-game2 컨테이너를 중지한 후, 기존 버전인 httpd-game 컨테이너를 실행합니다.
+
+```bash
+$ podman stop httpd-game2
+$ podman start httpd-game
+$ podman ps
+```
+
+![](./container_rollback.png)
 
 <br/>
 
----
 ### 5. 완성된 서비스 공유 (goldenimage vs FileSystem vs container) 
+---
+
 
 
 

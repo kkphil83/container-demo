@@ -80,7 +80,7 @@ $ podman ps
 ---
 
 간단한 웹 페이지 기반의 게임 애플리케이션을 웹서버에 배포하여 서비스를 확인합니다. 
-Git 소스에 있는 개발 소스를 로컬에 다운로드 합니다.
+GitHub에 있는 애플리케이션 소스를 로컬에 다운로드 합니다.
 
 ```bash
 $ git clone https://github.com/ellisonleao/clumsy-bird/
@@ -89,7 +89,7 @@ $ ls ./clumsy-bird/
 
 **2-1) 가상머신 기반 리눅스의 httpd 웹 서버에 APP 배포**
 
-다운로드 받은 게임 소스를 웹 서버가 바라보는 애플리케이션 디렉터리 위치로 복사합니다.
+다운로드 받은 애플리케이션 소스를 웹 서버가 바라보는 디렉터리 위치로 복사합니다.
 
 ```bash
 # 애플리케이션 소스 위치 확인
@@ -113,51 +113,7 @@ $ ls /var/www/html
 애플리케이션 복사가 완료되었으면, 웹 브라우저에서 게임 서비스를 확인합니다.
 ![](./vm_app.png)
 
-
-
 **2-2) httpd 컨테이너에 APP 배포**
-
-기존에 서비스하던 httpd 컨테이너를 중지합니다. 
-
-```bash
-$ podman stop httpd
-```
-
-registry.redhat.io/rhel8/httpd-24:1-160 컨테이너에 개발 소스를 배포하는 Containerfile을 생성합니다.
-
-```bash
-$ cat <<EOF > Containerfile
-FROM registry.redhat.io/rhel8/httpd-24:1-160
-
-# Add application sources
-RUN rm -rf /var/www/html/*
-ADD ./clumsy-bird/ /var/www/html/
-
-# The run script uses standard ways to run the application
-CMD run-httpd
-EOF
-```
-
-Containerfile 명세 파일을 활용하여 컨테이너 이미지를 생성합니다.
-
-```bash
-$ podman build -t httpd-game:1-160 .
-$ podman images
-```
-
-새롭게 만든 httpd-game 이미지를 활용하여 컨테이너를 기동합니다.
-
-```bash
-$ podman run -d --name httpd-game-1-160 -p 8081:8080 httpd-game:1-160
-$ podman ps
-```
-
-
-웹 브라우저에서 게임 서비스를 확인합니다.
-
-![](./container_app.png)
-
-**2-3) backup-httpd 컨테이너에 APP 배포**
 
 기존에 서비스하던 httpd 컨테이너를 중지하고, httpd-game 이라는 새로운 컨테이너를 기동합니다. 
 
@@ -220,32 +176,21 @@ $ podman search --list-tags registry.redhat.io/rhel8/httpd-24
 
 ![](./podman_search_tags.png)
 
-기본 베이스가 되는 httpd 컨테이너의 버전 (<span style="color: yellow">1-256</span>)을 확정하고 Containerfile을 수정합니다.
-
-
-```bash
-$ cat Containerfile
-$ sed -i 's/1-160/1-256/g' ./Containerfile
-$ cat Containerfile
-```
-
-Containerfile 명세 파일을 활용하여 컨테이너 이미지를 생성합니다.
+다운로드 받을 httpd 컨테이너 이미지 버전 (<span style="color: yellow">1-240</span>)을 확정하고 다운로드를 진행합니다.
 
 ```bash
-$ podman build -t httpd-game:1-256 .
+$ podman pull registry.redhat.io/rhel8/httpd-24:1-240
 $ podman images
 ```
 
-기존 실행 중인 httpd-game-1-160 컨테이너는 중지하고, 새로운 버전의 httpd-game:1-256 이미지를 활용하여 컨테이너를 기동합니다.
-
+다운로드 받은 신규 컨테이너 이미지를 실행하여 웹 서버 서비스를 확인합니다. 
+기존 버전인 httpd-game 컨테이너를 중지한 후, 새로운 컨테이너 이름을 httpd-game2 로 지정하여 서비스를 실행합니다.
 
 ```bash
-$ podman stop httpd-game-1-160
-$ podman ps
-$ podman run -d --name httpd-game-1-256 -p 8081:8080 httpd-game:1-256
+$ podman stop httpd-game
+$ podman run -d --name httpd-game2 -p 8081:8080 -v /root/clumsy-bird:/var/www/html:Z registry.redhat.io/rhel8/httpd-24:1-240
 $ podman ps
 ```
-
 
 웹 브라우저에서 8081 포트로 게임 서비스를 확인합니다.
 
@@ -282,8 +227,8 @@ $ dnf list --showduplicate httpd
 신규 버전의 httpd-game2 컨테이너를 중지한 후, 기존 버전인 httpd-game 컨테이너를 실행합니다.
 
 ```bash
-$ podman stop httpd-game-1-256
-$ podman start httpd-game-1-160
+$ podman stop httpd-game2
+$ podman start httpd-game
 $ podman ps
 ```
 

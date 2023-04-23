@@ -268,6 +268,7 @@ $ dnf list --showduplicate httpd
 신규 버전의 httpd-game2 컨테이너를 중지한 후, 기존 버전인 httpd-game 컨테이너를 실행합니다.
 
 ```bash
+$ podman ps
 $ podman stop httpd-game-1-256
 $ podman start httpd-game-1-160
 $ podman ps

@@ -157,20 +157,6 @@ $ podman ps
 
 ![](./container_app.png)
 
-**2-3) backup-httpd 컨테이너에 APP 배포**
-
-기존에 서비스하던 httpd 컨테이너를 중지하고, httpd-game 이라는 새로운 컨테이너를 기동합니다. 
-
-```bash
-$ podman stop httpd
-$ podman run -d --name httpd-game -p 8081:8080 -v /root/clumsy-bird:/var/www/html:Z registry.redhat.io/rhel8/httpd-24:1-160
-```
-
-
-웹 브라우저에서 게임 서비스를 확인합니다.
-
-![](./container_app.png)
-
 **2-3) 요약 - 웹 어플리케이션 배포시 특징**
 
 VM 기반 리눅스의 웹 서버에 새로운 애플리케이션을 배포하는 경우에는 기존 소스의 백업이 필요하지만, 웹 서버 컨테이너를 활용하는 경우에는 podman 명령어 실행시 소스 위치만 잡아주면 되므로 더 간단합니다.

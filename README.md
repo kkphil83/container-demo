@@ -274,6 +274,7 @@ $ podman start httpd-game-1-160
 $ podman ps
 ```
 
+![](./container_rollback.png)
 
 <br/>
 

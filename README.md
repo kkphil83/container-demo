@@ -12,8 +12,8 @@
 ```
 
 환경 정보 (ver.2023-05-22)
-1. OpenShift Container Platform 4.12
-2. OpenShift Virtualization 
+1. OpenShift Container Platform 4.12.12
+2. OpenShift Virtualization 4.12.0
 3. Red Hat Enterprise Linux 
 
 

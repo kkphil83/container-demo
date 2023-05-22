@@ -13,26 +13,28 @@ metadata:
         }
       ]
   labels:
-    app: rhel8-demo
+    app: rhel8-vm
     vm.kubevirt.io/template: rhel8-server-demo
     vm.kubevirt.io/template.namespace: openshift
     vm.kubevirt.io/template.revision: "1"
-  name: rhel8-demo
+  name: rhel8-vm
 spec:
   dataVolumeTemplates:
   - apiVersion: cdi.kubevirt.io/v1beta1
     kind: DataVolume
     metadata:
-      name: rhel8-demo
+      name: rhel8-vm
     spec:
-      sourceRef:
-        kind: DataSource
-        name: ${DATA_SOURCE_NAME}
-        namespace: ${DATA_SOURCE_NAMESPACE}
-      storage:
+      pvc:
+        accessModes:
+        - ReadWriteMany
         resources:
           requests:
             storage: 30Gi
+      source:
+        pvc:
+          name: PVC_NAME
+          namespace: openshift-virtualization-os-images
   running: false
   template:
     metadata:
@@ -41,7 +43,7 @@ spec:
         vm.kubevirt.io/os: rhel8
         vm.kubevirt.io/workload: server
       labels:
-        kubevirt.io/domain: rhel8-demo
+        kubevirt.io/domain: rhel8-vm
         kubevirt.io/size: small
     spec:
       domain:
@@ -83,7 +85,7 @@ spec:
         value: ""
       volumes:
       - dataVolume:
-          name: rhel8-demo
+          name: rhel8-vm
         name: rootdisk
       - cloudInitNoCloud:
           userData: |

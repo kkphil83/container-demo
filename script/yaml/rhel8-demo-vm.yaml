@@ -35,7 +35,7 @@ spec:
         pvc:
           name: PVC_NAME
           namespace: openshift-virtualization-os-images
-  running: false
+  running: true
   template:
     metadata:
       annotations:

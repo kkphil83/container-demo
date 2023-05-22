@@ -11,6 +11,12 @@
 5. 신뢰 시스템 공유 (goldenimage vs FileSystem vs container)
 ```
 
+환경 정보 (ver.2023-05-22)
+1. OpenShift Container Platform 4.12
+2. OpenShift Virtualization 
+3. Red Hat Enterprise Linux 
+
+
 <br/>
 
 ### 1. Apache 웹 서버 (HTTPD) 설치
@@ -21,15 +27,12 @@ Apache 웹 서버를 RHEL OS와 컨테이너에 각각 구성해보면서 각각
 
 **1-1) 가상머신 기반 리눅스에 httpd 설치**
 
-Red Hat Enterprise Linux 8 운영체제에서 패키지 관리자 도구인 dnf를 통해 httpd 서비스를 설치합니다.
-
-설치 가능한 httpd 버전을 확인합니다.  
-
-설치할 버전은 <span style="color: green">2.4.37-30.module+el8.3.0+7001+0766b9e7</span> 입니다.
+Red Hat Enterprise Linux 8 운영체제에서 패키지 관리자 도구인 dnf를 통해 설치 가능한 httpd 버전을 확인합니다.
 
 ```bash
 $ dnf list --showduplicate httpd
 ```
+설치할 버전은 <span style="color: green">2.4.37-30.module+el8.3.0+7001+0766b9e7</span> 입니다.
 
 Red Hat Enterprise Linux 8 운영체제에서 패키지 관리자 도구인 dnf를 통해 httpd 서비스를 설치합니다.
 

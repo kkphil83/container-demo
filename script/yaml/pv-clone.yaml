@@ -1,0 +1,15 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: rhel8-vm 
+spec:
+  source:
+    pvc:
+      namespace: "ov-demo" 
+      name: "rhel8-vm" 
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi 

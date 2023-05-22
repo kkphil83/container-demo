@@ -1,0 +1,279 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user1
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user1-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user2
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user2-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user3
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user3-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user4
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user4-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user5
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user5-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user6
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user6-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user7
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user7-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user8
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user8-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user9
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user9-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user10
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user10-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user11
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user11-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user12
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user12-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user13
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user13-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user14
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user14-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user15
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user15-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user16
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user16-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user17
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user17-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user18
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user18-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user19
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user19-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-clone-to-user20
+  namespace: ov-demo
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: user20-vm
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner
+  apiGroup: rbac.authorization.k8s.io

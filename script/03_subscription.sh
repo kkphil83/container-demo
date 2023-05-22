@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Subscription 등록에 필요한 변수들을 설정합니다.
+subscription_username="$USERNMAE"
+subscription_password="$PASSWORD"
+pool_id="$POOL_ID"
+# pool_id="2c94a891848d39ce0184d8a891805070"
+disable_repos=("*")    # 비활성화할 Repositories 목록
+enable_repos=("rhel-8-for-x86_64-baseos-rpms" "rhel-8-for-x86_64-appstream-rpms" "rhocp-4.12-for-rhel-8-x86_64-rpms")    # 활성화할 Repositories 목록
+
+# Subscription 등록을 위해 subscription-manager 명령어를 실행합니다.
+echo "Registering subscription..."
+subscription-manager register --username="$subscription_username" --password="$subscription_password" || { echo "Failed to register subscription"; exit 1; }
+
+# Pool ID를 사용하여 Subscription Pool을 할당합니다.
+echo "Attaching subscription pool..."
+subscription-manager attach --pool="$pool_id" || { echo "Failed to attach subscription pool"; exit 1; }
+
+# Subscription 상태를 확인합니다.
+echo "Verifying subscription status..."
+subscription-manager status || { echo "Failed to verify subscription status"; exit 1; }
+
+echo "Subscription registration completed."
+
+# 비활성화할 Repositories를 해지합니다.
+for repo in "${disable_repos[@]}"
+do
+    echo "Disabling repository: $repo"
+    subscription-manager repos --disable="$repo" || { echo "Failed to disable repository: $repo"; exit 1; }
+done
+
+# 활성화할 Repositories를 등록합니다.
+for repo in "${enable_repos[@]}"
+do
+    echo "Enabling repository: $repo"
+    subscription-manager repos --enable="$repo" || { echo "Failed to enable repository: $repo"; exit 1; }
+done
+
+echo "Subscription registration completed."

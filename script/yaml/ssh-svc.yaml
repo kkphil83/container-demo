@@ -1,15 +1,20 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: nodeport
+  name: rhel8-vm-ssh-service
+  namespace: ov-demo
 spec:
   externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
   ports:
-  - name: nodeport
-    nodePort: 30000
-    port: 27017
-    protocol: TCP
-    targetPort: 22
-  selector:
-    app: rhel8-vm
+    - protocol: TCP
+      port: 22000
+      targetPort: 22
+      nodePort: 31000
+  internalTrafficPolicy: Cluster
   type: NodePort
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    kubevirt.io/domain: rhel8-vm

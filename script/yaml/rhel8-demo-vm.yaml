@@ -47,6 +47,13 @@ spec:
         kubevirt.io/domain: rhel8-vm
         kubevirt.io/size: small
     spec:
+      accessCredentials:
+        - sshPublicKey:
+            propagationMethod:
+              configDrive: {}
+            source:
+              secret:
+                secretName: rhel8-vm-ssh-key
       domain:
         cpu:
           cores: 2
@@ -92,4 +99,5 @@ spec:
               user: cloud-user
               password: openshift
               chpasswd: { expire: False }
+            userDataBase64: $(cat startup.sh | base64 -w0)
           name: cloudinitdisk

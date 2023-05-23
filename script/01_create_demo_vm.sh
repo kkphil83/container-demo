@@ -33,5 +33,5 @@ sed -i "s/STARTUP_SCRIPT/$startup_script/g" $vm_yaml
 
 
 # VM 생성
-#oc apply -f $vm_yaml -n $project_name
+oc apply -f $vm_yaml -n $project_name
 

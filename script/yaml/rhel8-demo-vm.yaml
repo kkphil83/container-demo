@@ -88,5 +88,5 @@ spec:
           name: rootdisk
         - name: cloudinitdisk 
           cloudInitNoCloud:
-            userDataBase64: STARTUP_SCRIPT
-
+            secretRef:
+              name: rhel8-vm-secret

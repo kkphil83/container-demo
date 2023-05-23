@@ -88,5 +88,5 @@ spec:
           name: rootdisk
         - name: cloudinitdisk 
           cloudInitNoCloud:
-            userDataBase64: $(cat /home/lab-user/container-demo/script/yaml/startup.sh | base64 -w0)
+            userDataBase64: STARTUP_SCRIPT
 

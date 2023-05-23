@@ -16,6 +16,11 @@ sed -i "s/PVC_NAME/$pvc_name/g" $vm_yaml
 #sh ./ssh-keygen.sh
 #oc create secret generic rhel8-vm-ssh-key --from-file=ssh-privatekey=~/.ssh/id_rsa --from-file=ssh-publickey=~/.ssh/id_rsa.pub
 
+
+startup_script=`cat /home/lab-user/container-demo/script/yaml/startup.sh | base64 -w0`
+sed -i "s/STARTUP_SCRIPT/$startup_script/g" $vm_yaml
+
+
 # VM 생성
 oc apply -f $vm_yaml -n $project_name
 

@@ -14,7 +14,7 @@ sed -i "s/PVC_NAME/$pvc_name/g" $vm_yaml
 # ssh key 생성 및 시크릿 생성
 sudo -i yum install -y expect
 sh ./ssh-keygen.sh
-oc create secret generic rhel8-vm-ssh-key --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+oc create secret generic rhel8-vm-ssh-key --from-file=ssh-privatekey=~/.ssh/id_rsa --from-file=ssh-publickey=~/.ssh/id_rsa.pub
 
 # VM 생성
 oc apply -f $vm_yaml -n $project_name

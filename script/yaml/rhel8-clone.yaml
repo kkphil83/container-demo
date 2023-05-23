@@ -9,7 +9,7 @@ metadata:
     vm.kubevirt.io/template.revision: '1'
     vm.kubevirt.io/template.version: v0.24.1
 spec:
-  running: false
+  running: true
   template:
     metadata:
       annotations:

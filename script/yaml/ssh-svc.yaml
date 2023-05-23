@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: rhel8-vm-ssh-service
-  namespace: ov-demo
 spec:
   externalTrafficPolicy: Cluster
   ipFamilies:
@@ -11,7 +10,6 @@ spec:
     - protocol: TCP
       port: 22000
       targetPort: 22
-      nodePort: 31000
   internalTrafficPolicy: Cluster
   type: NodePort
   ipFamilyPolicy: SingleStack

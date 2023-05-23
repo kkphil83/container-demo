@@ -86,6 +86,7 @@ spec:
         - dataVolume:
             name: rhel8-vm
           name: rootdisk
-        - cloudInitNoCloud:
+        - name: cloudinitdisk 
+          cloudInitNoCloud:
             userDataBase64: $(cat /home/lab-user/container-demo/script/yaml/startup.sh | base64 -w0)
-          name: cloudinitdisk
+

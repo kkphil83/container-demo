@@ -20,21 +20,20 @@ metadata:
   name: rhel8-vm
 spec:
   dataVolumeTemplates:
-  - apiVersion: cdi.kubevirt.io/v1beta1
-    kind: DataVolume
-    metadata:
-      name: rhel8-vm
-    spec:
-      pvc:
-        accessModes:
-        - ReadWriteMany
-        resources:
-          requests:
-            storage: 30Gi
-      source:
-        pvc:
-          name: PVC_NAME
-          namespace: openshift-virtualization-os-images
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        name: rhel8-vm
+      spec:
+        source:
+          pvc:
+            name: VC_NAME
+            namespace: openshift-virtualization-os-images
+        storage:
+          volumeMode: Block
+          resources:
+            requests:
+              storage: 30Gi
   running: true
   template:
     metadata:

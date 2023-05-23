@@ -87,5 +87,5 @@ spec:
             name: rhel8-vm
           name: rootdisk
         - cloudInitNoCloud:
-            userDataBase64: $(cat startup.sh | base64 -w0)
+            userDataBase64: $(cat /home/lab-user/container-demo/script/yaml/startup.sh | base64 -w0)
           name: cloudinitdisk

@@ -14,10 +14,12 @@ metadata:
       ]
   labels:
     app: rhel8-vm
-    vm.kubevirt.io/template: rhel8-server-demo
+    vm.kubevirt.io/template: rhel8-server-small
     vm.kubevirt.io/template.namespace: openshift
-    vm.kubevirt.io/template.revision: "1"
+    vm.kubevirt.io/template.revision: '1'
+    vm.kubevirt.io/template.version: v0.24.1
   name: rhel8-vm
+  namespace: ov-demo
 spec:
   dataVolumeTemplates:
     - apiVersion: cdi.kubevirt.io/v1beta1
@@ -27,20 +29,20 @@ spec:
       spec:
         source:
           pvc:
-            name: VC_NAME
+            name: rhel8-06c76d29d511
             namespace: openshift-virtualization-os-images
         storage:
-          volumeMode: Block
           resources:
             requests:
               storage: 30Gi
-  running: true
+  running: false
   template:
     metadata:
       annotations:
         vm.kubevirt.io/flavor: small
         vm.kubevirt.io/os: rhel8
         vm.kubevirt.io/workload: server
+      creationTimestamp: null
       labels:
         kubevirt.io/domain: rhel8-vm
         kubevirt.io/size: small
@@ -52,16 +54,16 @@ spec:
           threads: 1
         devices:
           disks:
-          - disk:
-              bus: virtio
-            name: rootdisk
-          - disk:
-              bus: virtio
-            name: cloudinitdisk
+            - disk:
+                bus: virtio
+              name: rootdisk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
           interfaces:
-          - masquerade: {}
-            model: virtio
-            name: default
+            - masquerade: {}
+              model: virtio
+              name: default
           networkInterfaceMultiqueue: true
           rng: {}
         machine:
@@ -71,26 +73,23 @@ spec:
             memory: 4Gi
       evictionStrategy: LiveMigrate
       networks:
-      - name: default
-        pod: {}
+        - name: default
+          pod: {}
       nodeSelector:
-        node-role.kubernetes.io/metal: ""
+        node-role.kubernetes.io/metal: ''
       terminationGracePeriodSeconds: 180
       tolerations:
-      - effect: NoSchedule
-        id: 0
-        key: metal
-        operator: Exists
-        value: ""
+        - effect: NoSchedule
+          key: metal
+          operator: Exists
       volumes:
-      - dataVolume:
-          name: rhel8-vm
-        name: rootdisk
-      - cloudInitNoCloud:
-          userData: |
-            #cloud-config
-            user: cloud-user
-            password: openshift
-            chpasswd:
-              expire: false
-        name: cloudinitdisk
+        - dataVolume:
+            name: rhel8-vm
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              user: cloud-user
+              password: openshift
+              chpasswd: { expire: False }
+          name: cloudinitdisk

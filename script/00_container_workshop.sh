@@ -21,3 +21,7 @@ sh 12_podman_httpd_svc.sh
 
 # 웹 터미널 오퍼레이터 설치
 oc apply -f ./yaml/web-terminal-operator.yaml 
+
+# VM 상태 모니터링
+echo "## VM Provisioning Check CMD ##"
+echo "watch -n 5 'oc get vm -A | grep rhel8-vm'"

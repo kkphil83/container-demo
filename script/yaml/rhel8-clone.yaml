@@ -4,8 +4,8 @@ metadata:
   name: rhel8-vm
   labels:
     app: rhel8-vm
-    vm.kubevirt.io/template: rhel8-server-demo
-    vm.kubevirt.io/template.namespace: ov-demo
+    vm.kubevirt.io/template: rhel8-server-small
+    vm.kubevirt.io/template.namespace: openshift
     vm.kubevirt.io/template.revision: '1'
     vm.kubevirt.io/template.version: v0.24.1
 spec:

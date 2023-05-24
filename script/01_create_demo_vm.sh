@@ -22,18 +22,9 @@ oc new-project $project_name
 pvc_name=`oc get pvc -n openshift-virtualization-os-images | grep rhel8 | cut -d ' ' -f1`
 sed -i "s/PVC_NAME/$pvc_name/g" $vm_yaml
 
-# ssh key 생성 생성
-#sudo -i yum install -y expect
-#sh ./ssh-keygen.sh
-#oc create secret generic rhel8-vm-ssh-key --from-file=ssh-privatekey=~/.ssh/id_rsa --from-file=ssh-publickey=~/.ssh/id_rsa.pub
-
 # cloud init 스크립트 시크릿 생성
 oc project  $project_name
 oc create secret generic rhel8-vm-secret --from-file=userdata=./yaml/startup.sh
-
-#startup_script=`cat ./yaml/startup.sh | base64 -w0`
-#sed -i "s/STARTUP_SCRIPT/$startup_script/g" $vm_yaml
-
 
 # VM 생성
 oc apply -f $vm_yaml -n $project_name

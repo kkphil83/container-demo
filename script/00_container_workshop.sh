@@ -11,13 +11,10 @@ oc get machineset -n openshift-machine-api
 echo ' '
 
 # 스크립트 순차 실행
-sh 01_create_demo_vm.sh
-sh 02_new-user-project.sh
-sh 08_datavolume-cloner_role.sh
-sh 09_pvc_clone.sh
-sh 10_user_vm_create.sh
-sh 11_project_rabc_settings.sh
-sh 12_podman_httpd_svc.sh
+sh 01_new-user-project.sh
+sh 03_user_vm_create.sh
+sh 04_project_rabc_settings.sh
+sh 05_podman_httpd_svc.sh
 
 # 웹 터미널 오퍼레이터 설치
 oc apply -f ./yaml/web-terminal-operator.yaml 

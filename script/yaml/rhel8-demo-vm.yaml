@@ -19,7 +19,6 @@ metadata:
     vm.kubevirt.io/template.revision: '1'
     vm.kubevirt.io/template.version: v0.24.1
   name: rhel8-vm
-  namespace: ov-demo
 spec:
   dataVolumeTemplates:
     - apiVersion: cdi.kubevirt.io/v1beta1
@@ -29,7 +28,7 @@ spec:
       spec:
         source:
           pvc:
-            name: rhel8-06c76d29d511
+            name: PVC_NAME
             namespace: openshift-virtualization-os-images
         storage:
           resources:

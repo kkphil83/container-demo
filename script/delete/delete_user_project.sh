@@ -4,7 +4,7 @@
 project_count=20
 project_prefix="user"
 
-# 프로젝트를 생성합니다.
+# 프로젝트를 삭제합니다.
 for ((i=1; i<=project_count; i++))
 do
     project_name="${project_prefix}${i}-vm"

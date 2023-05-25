@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# 서브스크립션 등록을 위한 Red Hat 계정 정보 기입
-REDHAT_USERNAME=''
-REDHAT_PASSWORD=''
-
 # cloud-init startup 스크립트에 계정 정보 수정
-sed -i "s/REDHAT_USERNAME/$REDHAT_USERNAME/g" ./yaml/startup.sh
-sed -i "s/REDHAT_PASSWORD/$REDHAT_PASSWORD/g" ./yaml/startup.sh
+sed -i "s/REDHAT_USERNAME/$1/g" ./yaml/startup.sh
+sed -i "s/REDHAT_PASSWORD/$2/g" ./yaml/startup.sh
 
 # YAML 파일 경로
 vm_yaml="./yaml/rhel8-demo-vm.yaml"

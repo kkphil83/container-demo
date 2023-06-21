@@ -83,7 +83,7 @@ echo "Subscription registration completed."
 start_index=1
 
 # 사용자 계정 생성 종료 번호
-end_index=20
+end_index=30
 
 # 그룹 이름
 groupname="users"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-project_count=20
+project_count=30
 project_prefix="user"
 
 for ((i=1; i<=project_count; i++))

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 생성할 프로젝트의 개수와 접두사(prefix)를 지정합니다.
-project_count=20
+project_count=30
 project_prefix="user"
 
 # 프로젝트를 생성합니다.
